@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { prisma } from "~~/server/utils/prismaImport";
-import type { ILoginResponse } from "../../../types/user";
+import type { ILoginResponse } from "~~/types/user";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
