@@ -23,6 +23,7 @@ export default defineEventHandler(async (event) => {
       },
     });
 
+    // Verify username
     if (!user) {
       throw createError({
         statusCode: 401,
@@ -32,11 +33,18 @@ export default defineEventHandler(async (event) => {
 
     // Verify password
     const validPassword = await bcrypt.compare(password, user.password);
-
     if (!validPassword) {
       throw createError({
         statusCode: 401,
         statusMessage: "Credenciales incorrectas",
+      });
+    }
+
+    // Verify user is active or not
+    if (!user.isActive) {
+      throw createError({
+        statusCode: 401,
+        statusMessage: "Usuario inactivo",
       });
     }
 
