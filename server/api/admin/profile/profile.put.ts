@@ -30,9 +30,9 @@ export default defineEventHandler(async (event) => {
     const { username, firstName, lastName, email, phoneNumber } = body;
 
     // Required fields
-    if (!firstName || !lastName || !phoneNumber) {
+    if (!firstName || !lastName || !phoneNumber || !email || !username) {
       throw createError({
-        statusCode: 401,
+        statusCode: 400,
         statusMessage:
           "Los campos username, firstName, lastName, email y phoneNumber son obligatorios",
       });
