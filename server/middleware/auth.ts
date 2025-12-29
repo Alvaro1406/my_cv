@@ -1,9 +1,27 @@
 import { IUser } from "~~/types/user";
 import { getUserFromSession } from "../utils/auth";
+import { prisma } from "~~/server/utils/prismaImport";
 
 // Function to validate if a user can access a route
 export async function validateUserAccess(event: any, requiredRole?: string) {
+  const token = getCookie(event, "auth-token");
   const user: IUser | null = await getUserFromSession(event);
+
+  const userSession = await prisma.userSession.findUnique({
+    where: { token: token },
+    select: {
+      id: true,
+      expiresAt: true,
+    },
+  });
+
+  // Create session expiration check
+  if (userSession && new Date() > userSession.expiresAt) {
+    throw createError({
+      statusCode: 401,
+      statusMessage: "Sesión expirada",
+    });
+  }
 
   if (!user) {
     throw createError({
