@@ -21,10 +21,12 @@
         :model-value="loginData.password"
         @update:model-value="(newVal: string) => (loginData.password = newVal)"
       />
+      <Message v-if="message && !loading" severity="error" :text="message" />
       <ButtonPrimary
         label="Iniciar Sesión"
         class="w-full mt-4"
-        :loading="false"
+        :loading="loading"
+        @click="handleLogin"
       />
     </div>
   </div>
@@ -37,12 +39,19 @@ definePageMeta({
 });
 
 // Import components
+import Message from "~/components/default/Message.vue";
 import ButtonPrimary from "~/components/default/ButtonPrimary.vue";
 import InputText from "~/components/default/InputText.vue";
 import InputPassword from "~/components/default/InputPassword.vue";
+
+const { loading, message, login } = useAuth();
 
 const loginData = ref<{ username: string; password: string }>({
   username: "",
   password: "",
 });
+
+async function handleLogin() {
+  await login(loginData.value);
+}
 </script>
