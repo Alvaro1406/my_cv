@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
     // Verify user is active or not
     if (!user.isActive) {
       throw createError({
-        statusCode: 401,
+        statusCode: 403,
         statusMessage: "Usuario inactivo",
       });
     }

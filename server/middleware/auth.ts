@@ -30,13 +30,6 @@ export async function validateUserAccess(event: any, requiredRole?: string) {
     });
   }
 
-  if (!user.isActive) {
-    throw createError({
-      statusCode: 403,
-      statusMessage: "Usuario inactivo",
-    });
-  }
-
   if (requiredRole && user.role !== requiredRole) {
     throw createError({
       statusCode: 403,
