@@ -9,8 +9,8 @@ const adapter = new PrismaPg({
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  await prisma.user.deleteMany({});
   await prisma.userSession.deleteMany({});
+  await prisma.user.deleteMany({});
 
   // Hash the password
   console.log("🌱 Hash the password");

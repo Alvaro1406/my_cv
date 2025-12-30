@@ -59,16 +59,19 @@ export default defineEventHandler(async (event) => {
       { expiresIn: "7d" }
     );
 
-    // Create session
-    const expiresAt = new Date();
-    expiresAt.setDate(expiresAt.getDate() + 7);
-
+    /**
+     * Delete existing sessions for the user
+     */
     await prisma.userSession.deleteMany({
       where: {
         userId: user.id,
       },
     });
 
+    // Create session
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 7);
+    // Store session in the database
     await prisma.userSession.create({
       data: {
         userId: user.id,

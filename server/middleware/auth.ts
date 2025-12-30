@@ -57,7 +57,7 @@ export default defineEventHandler(async (event) => {
       }
 
       // Validate user access
-      await validateUserAccess(event);
+      await validateUserAccess(event, "ADMIN");
     } catch (error) {
       throw error;
     }
