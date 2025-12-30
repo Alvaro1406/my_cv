@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
     // Verify user is active or not
     if (!user.isActive) {
       throw createError({
-        statusCode: 401,
+        statusCode: 403,
         statusMessage: "Usuario inactivo",
       });
     }
@@ -59,10 +59,19 @@ export default defineEventHandler(async (event) => {
       { expiresIn: "7d" }
     );
 
+    /**
+     * Delete existing sessions for the user
+     */
+    await prisma.userSession.deleteMany({
+      where: {
+        userId: user.id,
+      },
+    });
+
     // Create session
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 7);
-
+    // Store session in the database
     await prisma.userSession.create({
       data: {
         userId: user.id,

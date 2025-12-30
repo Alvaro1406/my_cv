@@ -1,21 +1,32 @@
 import { IUser } from "~~/types/user";
 import { getUserFromSession } from "../utils/auth";
+import { prisma } from "~~/server/utils/prismaImport";
 
 // Function to validate if a user can access a route
 export async function validateUserAccess(event: any, requiredRole?: string) {
+  const token = getCookie(event, "auth-token");
   const user: IUser | null = await getUserFromSession(event);
+
+  const userSession = await prisma.userSession.findUnique({
+    where: { token: token },
+    select: {
+      id: true,
+      expiresAt: true,
+    },
+  });
+
+  // Create session expiration check
+  if (userSession && new Date() > userSession.expiresAt) {
+    throw createError({
+      statusCode: 401,
+      statusMessage: "Sesión expirada",
+    });
+  }
 
   if (!user) {
     throw createError({
       statusCode: 401,
       statusMessage: "No autorizado",
-    });
-  }
-
-  if (!user.isActive) {
-    throw createError({
-      statusCode: 403,
-      statusMessage: "Usuario inactivo",
     });
   }
 
@@ -46,7 +57,7 @@ export default defineEventHandler(async (event) => {
       }
 
       // Validate user access
-      await validateUserAccess(event);
+      await validateUserAccess(event, "ADMIN");
     } catch (error) {
       throw error;
     }
