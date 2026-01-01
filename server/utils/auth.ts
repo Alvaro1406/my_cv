@@ -25,6 +25,7 @@ export async function getUserFromSession(event: any) {
         password: true,
         firstName: true,
         lastName: true,
+        image: true,
         email: true,
         phoneNumber: true,
         role: true,

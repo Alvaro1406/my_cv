@@ -13,6 +13,7 @@ export interface IUser {
   firstName: String;
   lastName: String;
   email: string | null;
+  image?: string;
   phoneNumber: string;
   role: "ADMIN" | "USER";
   isActive?: boolean;

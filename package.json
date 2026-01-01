@@ -15,6 +15,7 @@
     "db:seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.958.0",
     "@primeuix/themes": "^2.0.2",
     "@primevue/nuxt-module": "^4.5.3",
     "@prisma/adapter-pg": "^7.1.0",

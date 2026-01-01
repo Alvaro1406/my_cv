@@ -17,8 +17,9 @@ model User {
   username    String        @unique
   password    String
   firstName   String
-  lastName   String
+  lastName    String
   phoneNumber String
+  image       String
   email       String?       @unique
   role        Role          @default(ADMIN)
   visible     Boolean       @default(true)
@@ -45,4 +46,5 @@ model UserSession {
 
 enum Role {
   ADMIN
+  USER
 }
