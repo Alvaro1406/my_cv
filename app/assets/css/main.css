@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@nuxt/ui";
 
 @theme {
   /* --- Breakpoints (Screens) --- */
@@ -9,18 +10,19 @@
   --breakpoint-lg: 1440px;
   --breakpoint-xl: 1800px;
 
-  --color-primary: #2563eb;
-  --color-primary-light: #60a5fa;
-  --color-primary-dark: #172554;
+  --font-sans: "Public Sans", sans-serif;
 
-  --color-blue-50: #eff6ff;
-  --color-blue-100: #dbeafe;
-  --color-blue-200: #bfdbfe;
-  --color-blue-300: #93c5fd;
-  --color-blue-500: #3b82f6;
-  --color-blue-700: #1d4ed8;
-  --color-blue-800: #1e40af;
-  --color-blue-900: #1e3a8a;
+  --color-blue-50: #effdf5;
+  --color-blue-100: #d9fbe8;
+  --color-blue-200: #b3f5d1;
+  --color-blue-300: #75edae;
+  --color-blue-400: #00dc82;
+  --color-blue-500: #00c16a;
+  --color-blue-600: #00a155;
+  --color-blue-700: #007f45;
+  --color-blue-800: #016538;
+  --color-blue-900: #0a5331;
+  --color-blue-950: #052e16;
 
   /* --- Aspect Ratio --- */
   --aspect-9/8: 1 / 1.125;
