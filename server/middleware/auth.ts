@@ -3,7 +3,7 @@ import { getUserFromSession } from "../utils/auth";
 import { prisma } from "~~/server/utils/prisma";
 
 // Function to validate if a user can access a route
-export async function validateUserAccess(event: any, requiredRole?: string) {
+export async function validateUserAccess(event: any): Promise<IUser> {
   const token = getCookie(event, "auth-token");
   const user: IUser | null = await getUserFromSession(event);
 
@@ -30,13 +30,6 @@ export async function validateUserAccess(event: any, requiredRole?: string) {
     });
   }
 
-  if (requiredRole && user.role !== requiredRole) {
-    throw createError({
-      statusCode: 403,
-      statusMessage: "Permisos insuficientes",
-    });
-  }
-
   return user;
 }
 
@@ -47,8 +40,8 @@ export default defineEventHandler(async (event) => {
     try {
       // Exclude public routes as login
       const publicRoutes = [
-        "/api/admin/login",
-        "/api/admin/logout",
+        "/api/auth/login",
+        "/api/auth/logout",
         "/api/public",
       ];
 
@@ -57,7 +50,7 @@ export default defineEventHandler(async (event) => {
       }
 
       // Validate user access
-      await validateUserAccess(event, "ADMIN");
+      await validateUserAccess(event);
     } catch (error) {
       throw error;
     }
