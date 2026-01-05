@@ -20,7 +20,12 @@ export default defineNuxtPlugin(() => {
         const token = useCookie<string | null>("auth-token");
         token.value = null;
 
-        // 2. Redirect to login
+        // 2. Clear localStorage token if we are on client-side
+        if (import.meta.client) {
+          localStorage.removeItem("auth-token");
+        }
+
+        // 3. Redirect to login
         // We use navigateTo so it works both on client and server
         await navigateTo("/login");
       }
