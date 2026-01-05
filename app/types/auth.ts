@@ -1,0 +1,20 @@
+export interface IAuthCredentials {
+  username: string;
+  password: string;
+}
+
+export interface IAuthResponse {
+  success: boolean;
+  message: {
+    es: string;
+    en: string;
+  };
+  token: string;
+  user: {
+    id: string;
+    username: string;
+    firstName: string;
+    lastName: string;
+    role: "ADMIN" | "USER";
+  };
+}
