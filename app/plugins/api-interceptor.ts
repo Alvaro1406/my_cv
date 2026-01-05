@@ -1,6 +1,6 @@
 import { defineNuxtPlugin } from "#app";
 
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(() => {
   // We obtain the original $fetch reference so as not to break base configurations.
 
   const $fetch = globalThis.$fetch;
@@ -20,9 +20,14 @@ export default defineNuxtPlugin((nuxtApp) => {
         const token = useCookie<string | null>("auth-token");
         token.value = null;
 
-        // 2. Redirect to login
+        // 2. Clear localStorage token if we are on client-side
+        if (import.meta.client) {
+          localStorage.removeItem("auth-token");
+        }
+
+        // 3. Redirect to login
         // We use navigateTo so it works both on client and server
-        await navigateTo("/admin/login");
+        await navigateTo("/login");
       }
     },
   });
