@@ -1,12 +1,11 @@
-import { useRouter } from "vue-router";
-import type { IAuthCredentials, IAuthResponse } from "~/interfaces/auth";
-import type { IErrorCatch } from "~/interfaces/error-catch";
+import type { IErrorCatch } from "~/types/error-catch";
+import type { IAuthCredentials, IAuthResponse } from "~/types/auth";
 
 export const useAuth = () => {
-  const router = useRouter();
-
-  const loading = ref<boolean>(false);
   const message = ref<string>("");
+  const loading = ref<boolean>(false);
+
+  const router = useRouter();
 
   async function login(userData: IAuthCredentials) {
     message.value = "";
@@ -16,9 +15,15 @@ export const useAuth = () => {
         method: "POST",
         body: userData,
       });
+
       if (response.success) {
-        router.push("/admin");
+        // Set the token in a localStorage
+        const token = response.token;
+        localStorage.setItem("auth-token", token);
+
+        router.push("/");
       }
+
       loading.value = false;
     } catch (error: IErrorCatch | any) {
       message.value = error.response._data?.message;

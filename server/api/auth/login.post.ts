@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { prisma } from "~~/server/utils/prismaImport";
+import { prisma } from "~~/server/utils/prisma";
 import type { ILoginResponse } from "~~/types/user";
 
 export default defineEventHandler(async (event) => {

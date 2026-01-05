@@ -1,6 +1,6 @@
 import { IUser } from "~~/types/user";
 import { getUserFromSession } from "../utils/auth";
-import { prisma } from "~~/server/utils/prismaImport";
+import { prisma } from "~~/server/utils/prisma";
 
 // Function to validate if a user can access a route
 export async function validateUserAccess(event: any, requiredRole?: string) {

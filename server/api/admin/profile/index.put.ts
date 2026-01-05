@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { prisma } from "~~/server/utils/prismaImport";
+import { prisma } from "~~/server/utils/prisma";
 import { validationEmail } from "~~/server/utils/validations";
 
 export default defineEventHandler(async (event) => {

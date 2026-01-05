@@ -1,8 +1,8 @@
 export interface ILoginResponse {
   id: string;
   username: string;
-  firstName: String;
-  lastName: String;
+  firstName: string;
+  lastName: string;
   role: "ADMIN" | "USER";
 }
 
@@ -10,9 +10,10 @@ export interface IUser {
   id: string;
   username: string;
   password: string;
-  firstName: String;
-  lastName: String;
+  firstName: string;
+  lastName: string;
   email: string | null;
+  image?: string;
   phoneNumber: string;
   role: "ADMIN" | "USER";
   isActive?: boolean;
