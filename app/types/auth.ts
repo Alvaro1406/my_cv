@@ -15,6 +15,7 @@ export interface IAuthResponse {
     username: string;
     firstName: string;
     lastName: string;
+    image: string;
     role: "ADMIN" | "USER";
   };
 }

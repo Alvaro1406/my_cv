@@ -3,6 +3,7 @@ export interface ILoginResponse {
   username: string;
   firstName: string;
   lastName: string;
+  image: string;
   role: "ADMIN" | "USER";
 }
 
