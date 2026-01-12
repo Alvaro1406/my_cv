@@ -24,9 +24,10 @@ export const useAuth = () => {
 
       if (response.success) {
         // Set the token in a localStorage
+        const user = response.user;
         const token = response.token;
+        localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("auth-token", token);
-
         router.push("/");
       }
 
@@ -43,12 +44,13 @@ export const useAuth = () => {
   async function logout() {
     loading.value = true;
     try {
-      const response = await $fetch("/api/auth/login", {
+      const response = await $fetch("/api/auth/logout", {
         method: "POST",
       });
 
       if (response.success) {
         if (import.meta.client) {
+          localStorage.removeItem("user");
           localStorage.removeItem("auth-token");
         }
         router.push("/login");
