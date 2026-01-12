@@ -99,6 +99,7 @@ export default defineEventHandler(async (event) => {
         username: user.username,
         firstName: user.firstName,
         lastName: user.lastName,
+        image: user.image,
         role: user.role,
       } as ILoginResponse,
       token,
