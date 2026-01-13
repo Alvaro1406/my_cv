@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { prisma } from "~~/server/utils/prisma";
+import { IUser } from "~~/types/user";
 
 export async function getUserFromSession(event: any) {
   try {
@@ -33,7 +34,7 @@ export async function getUserFromSession(event: any) {
       },
     });
 
-    return user;
+    return user as IUser;
   } catch (error) {
     console.error("Error getting user from session:", error);
     return null;
