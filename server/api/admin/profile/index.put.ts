@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import { prisma } from "~~/server/utils/prisma";
 import { validationEmail } from "~~/server/utils/validations";
 import { uploadImage } from "~~/server/utils/upImage";
+import { deleteImage } from "~~/server/utils/delImage";
 
 export default defineEventHandler(async (event) => {
   try {
@@ -54,6 +55,13 @@ export default defineEventHandler(async (event) => {
     let upImage = null;
     if (image) {
       upImage = await uploadImage(event, "profile");
+      const userImage = await prisma.user.findUnique({
+        where: { id: decoded.userId },
+        select: { image: true },
+      });
+      if (userImage?.image) {
+        deleteImage(userImage?.image);
+      }
     }
 
     /**
