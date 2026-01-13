@@ -22,6 +22,7 @@ export default defineNuxtPlugin(() => {
 
         // 2. Clear localStorage token if we are on client-side
         if (import.meta.client) {
+          localStorage.removeItem("user");
           localStorage.removeItem("auth-token");
         }
 

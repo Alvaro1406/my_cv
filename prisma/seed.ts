@@ -29,30 +29,6 @@ async function main() {
       isActive: true,
       visible: true,
     },
-    {
-      username: "israel",
-      password: passwordHash,
-      firstName: "Israel",
-      lastName: "Beruvides",
-      phoneNumber: "+5354220883",
-      image: "",
-      email: "abguzman1406@gmail.com",
-      role: "USER",
-      isActive: true,
-      visible: true,
-    },
-    {
-      username: "lizett",
-      password: passwordHash,
-      firstName: "Lizett",
-      lastName: "Guzmán",
-      phoneNumber: "+5351748028",
-      image: "",
-      email: "paraisoscuba2@gmail.com",
-      role: "USER",
-      isActive: true,
-      visible: true,
-    },
   ];
 
   // Create a top-level user

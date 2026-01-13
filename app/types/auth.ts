@@ -15,6 +15,18 @@ export interface IAuthResponse {
     username: string;
     firstName: string;
     lastName: string;
+    image: string;
     role: "ADMIN" | "USER";
   };
+}
+
+export interface IProfile {
+  id: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  image?: string;
+  email: string;
+  phoneNumber: string;
+  role: "ADMIN" | "USER";
 }

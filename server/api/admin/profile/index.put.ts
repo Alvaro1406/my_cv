@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { prisma } from "~~/server/utils/prisma";
 import { validationEmail } from "~~/server/utils/validations";
+import { uploadImage } from "~~/server/utils/upImage";
 
 export default defineEventHandler(async (event) => {
   try {
@@ -23,12 +24,41 @@ export default defineEventHandler(async (event) => {
       process.env.JWT_SECRET_KEY || "your-secret-key"
     ) as any;
 
+    // Get data from the form data
+    const formData = await readMultipartFormData(event);
+    if (!formData || formData.length === 0) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: "No se han proporcionado datos",
+      });
+    }
+
+    const firstName = formData
+      .find((field) => field.name === "firstName")
+      ?.data.toString();
+    const lastName = formData
+      .find((field) => field.name === "lastName")
+      ?.data.toString();
+    const phoneNumber = formData
+      .find((field) => field.name === "phoneNumber")
+      ?.data.toString();
+    const email = formData
+      .find((field) => field.name === "email")
+      ?.data.toString();
+    const username = formData
+      .find((field) => field.name === "username")
+      ?.data.toString();
+    const image = formData.find((field) => field.name === "image")?.data;
+
+    // Upload the image if it exists
+    let upImage = null;
+    if (image) {
+      upImage = await uploadImage(event, "profile");
+    }
+
     /**
      * Validations
      */
-    const body = await readBody(event);
-    const { username, firstName, lastName, email, phoneNumber } = body;
-
     // Required fields
     if (!firstName || !lastName || !phoneNumber || !email || !username) {
       throw createError({
@@ -81,13 +111,21 @@ export default defineEventHandler(async (event) => {
      */
     const updateUser = await prisma.user.update({
       where: { id: decoded.userId },
-      data: { username, firstName, lastName, email, phoneNumber },
+      data: {
+        username,
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        image: upImage ? upImage?.images[0] : undefined,
+      },
       select: {
         username: true,
         firstName: true,
         lastName: true,
         email: true,
         phoneNumber: true,
+        image: true,
       },
     });
 
