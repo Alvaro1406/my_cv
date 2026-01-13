@@ -4,7 +4,7 @@ import type { FormSubmitEvent } from "@nuxt/ui";
 
 // Import composables for toast notifications and authentication
 const toast = useToast();
-const { user, loading, getProfile } = useAuth();
+const { user, loading, getProfile, updateProfile } = useAuth();
 
 // Create a ref for the file input element to handle file uploads
 const selectedFile = ref<File | null>(null);
@@ -21,14 +21,32 @@ const profileSchema = z.object({
 });
 type ProfileSchema = z.output<typeof profileSchema>;
 
+// Handle form submission to update the user's profile information
 async function onSubmit(event: FormSubmitEvent<ProfileSchema>) {
-  toast.add({
-    title: "Success",
-    description: "Your settings have been updated.",
-    icon: "i-lucide-check",
-    color: "success",
+  const response = await updateProfile({
+    firstName: event.data.firstName,
+    lastName: event.data.lastName,
+    email: event.data.email,
+    username: event.data.username,
+    phoneNumber: event.data.phoneNumber,
+    image: selectedFile.value as unknown as string, // Cast the file to a string for the API
   });
-  console.log(event.data);
+  if (response?.success) {
+    toast.add({
+      title: "Perfecto",
+      description: "Tu perfil se ha actualizado correctamente.",
+      icon: "i-lucide-check",
+      color: "success",
+    });
+  } else {
+    toast.add({
+      title: "Error",
+      description:
+        "Hubo un error al actualizar tu perfil. Por favor, inténtalo de nuevo.",
+      icon: "i-lucide-x",
+      color: "error",
+    });
+  }
 }
 
 // Handle file input change event to update the user's avatar image

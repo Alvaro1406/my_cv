@@ -75,6 +75,39 @@ export const useAuth = () => {
 
       if (response.success) {
         user.value = response.data;
+        if (import.meta.client) {
+          localStorage.setItem("user", JSON.stringify(response.data));
+        }
+      }
+      loading.value = false;
+    } catch (error: IErrorCatch | any) {
+      message.value = error.response._data?.message;
+      loading.value = false;
+    }
+  }
+
+  /**
+   * Get profile function
+   * @param data Partial profile data to update the user's profile information
+   * @returns The response from the API after updating the profile information
+   */
+  async function updateProfile(data: Partial<IProfile>) {
+    loading.value = true;
+    const formData = new FormData();
+    for (const key in data) {
+      if (data[key as keyof IProfile]) {
+        formData.append(key, data[key as keyof IProfile] as string);
+      }
+    }
+    try {
+      const response = await $fetch("/api/admin/profile", {
+        method: "PUT",
+        body: formData,
+      });
+
+      if (response.success) {
+        await getProfile();
+        return response;
       }
       loading.value = false;
     } catch (error: IErrorCatch | any) {
@@ -87,6 +120,7 @@ export const useAuth = () => {
     login,
     logout,
     getProfile,
+    updateProfile,
     user,
     loading,
     message,
