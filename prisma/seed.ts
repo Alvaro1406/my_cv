@@ -23,7 +23,8 @@ async function main() {
       firstName: "Alvaro",
       lastName: "Beruvides",
       phoneNumber: "+5355651996",
-      image: "",
+      image:
+        "https://zhtzkllbjojohejpmocw.supabase.co/storage/v1/object/public/my-cv-bucket/profile/b74a498d-05c4-4021-be3b-1ea872bfe034.jpg",
       email: "alvaroberuvides@gmail.com",
       role: "ADMIN",
       isActive: true,
