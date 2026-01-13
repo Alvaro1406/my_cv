@@ -23,14 +23,6 @@ const links = [
       },
     },
     {
-      label: "Customers",
-      icon: "i-lucide-users",
-      to: "/customers",
-      onSelect: () => {
-        open.value = false;
-      },
-    },
-    {
       label: "Settings",
       to: "/settings",
       icon: "i-lucide-settings",
@@ -41,13 +33,6 @@ const links = [
           label: "General",
           to: "/settings",
           exact: true,
-          onSelect: () => {
-            open.value = false;
-          },
-        },
-        {
-          label: "Members",
-          to: "/settings/members",
           onSelect: () => {
             open.value = false;
           },
