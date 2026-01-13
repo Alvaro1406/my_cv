@@ -1,8 +1,9 @@
 import type { IErrorCatch } from "~/types/error-catch";
-import type { IAuthCredentials, IAuthResponse } from "~/types/auth";
+import type { IProfile, IAuthCredentials, IAuthResponse } from "~/types/auth";
 
 export const useAuth = () => {
   /** Properties */
+  const user = ref<IProfile>({} as IProfile);
   const message = ref<string>("");
   const loading = ref<boolean>(false);
 
@@ -62,9 +63,31 @@ export const useAuth = () => {
     }
   }
 
+  /**
+   * Get profile function
+   */
+  async function getProfile() {
+    loading.value = true;
+    try {
+      const response = await $fetch("/api/admin/profile", {
+        method: "GET",
+      });
+
+      if (response.success) {
+        user.value = response.data;
+      }
+      loading.value = false;
+    } catch (error: IErrorCatch | any) {
+      message.value = error.response._data?.message;
+      loading.value = false;
+    }
+  }
+
   return {
     login,
     logout,
+    getProfile,
+    user,
     loading,
     message,
   };
