@@ -90,6 +90,39 @@ onBeforeMount(async () => {
 
     <UPageCard variant="subtle">
       <UFormField
+        name="image"
+        label="Imagen de perfil"
+        description="JPG, GIF or PNG. 2MB Max."
+        class="flex max-sm:flex-col justify-between sm:items-center gap-4"
+      >
+        <div class="flex flex-wrap items-center gap-3">
+          <UAvatar
+            :src="user.image"
+            :alt="user.firstName + ' ' + user.lastName"
+            size="lg"
+          />
+          <UButton label="Choose" color="neutral" @click="onFileClick" />
+          <input
+            ref="fileRef"
+            type="file"
+            class="hidden"
+            accept=".jpg, .jpeg, .png"
+            @change="onFileChange"
+          />
+        </div>
+      </UFormField>
+      <USeparator />
+      <UFormField
+        name="username"
+        label="Nombre de usuario"
+        description="Tu nombre de usuario único para iniciar sesión."
+        required
+        class="flex max-sm:flex-col justify-between items-start gap-4"
+      >
+        <UInput v-model="user.username" type="username" autocomplete="off" />
+      </UFormField>
+      <USeparator />
+      <UFormField
         name="firstName"
         label="Nombre"
         description="Nombre para mostrar en tu perfil y recibos."
@@ -126,40 +159,7 @@ onBeforeMount(async () => {
         required
         class="flex max-sm:flex-col justify-between items-start gap-4"
       >
-        <UInput v-model="user.phoneNumber" type="email" autocomplete="off" />
-      </UFormField>
-      <USeparator />
-      <UFormField
-        name="username"
-        label="Nombre de usuario"
-        description="Tu nombre de usuario único para iniciar sesión."
-        required
-        class="flex max-sm:flex-col justify-between items-start gap-4"
-      >
-        <UInput v-model="user.username" type="username" autocomplete="off" />
-      </UFormField>
-      <USeparator />
-      <UFormField
-        name="image"
-        label="Imagen de perfil"
-        description="JPG, GIF or PNG. 1MB Max."
-        class="flex max-sm:flex-col justify-between sm:items-center gap-4"
-      >
-        <div class="flex flex-wrap items-center gap-3">
-          <UAvatar
-            :src="user.image"
-            :alt="user.firstName + ' ' + user.lastName"
-            size="lg"
-          />
-          <UButton label="Choose" color="neutral" @click="onFileClick" />
-          <input
-            ref="fileRef"
-            type="file"
-            class="hidden"
-            accept=".jpg, .jpeg, .png, .gif"
-            @change="onFileChange"
-          />
-        </div>
+        <UInput v-model="user.phoneNumber" autocomplete="off" />
       </UFormField>
     </UPageCard>
   </UForm>
