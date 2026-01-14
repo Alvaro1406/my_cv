@@ -30,3 +30,8 @@ export interface IProfile {
   phoneNumber: string;
   role: "ADMIN" | "USER";
 }
+
+export interface ICPassword {
+  oldPassword: string;
+  password: string;
+}

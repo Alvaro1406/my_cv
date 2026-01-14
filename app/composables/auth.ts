@@ -1,5 +1,10 @@
 import type { IErrorCatch } from "~/types/error-catch";
-import type { IProfile, IAuthCredentials, IAuthResponse } from "~/types/auth";
+import type {
+  IProfile,
+  IAuthCredentials,
+  IAuthResponse,
+  ICPassword,
+} from "~/types/auth";
 
 export const useAuth = () => {
   /** Properties */
@@ -116,11 +121,34 @@ export const useAuth = () => {
     }
   }
 
+  /**
+   * Function to change password
+   * @param data password data
+   */
+  async function changePassword(data: Partial<ICPassword>) {
+    loading.value = true;
+    try {
+      const response = await $fetch("/api/admin/profile/change-password", {
+        method: "PATCH",
+        body: data,
+      });
+
+      if (response.success) {
+        router.push("/settings");
+      }
+      loading.value = false;
+    } catch (error: IErrorCatch | any) {
+      message.value = error.response._data?.message;
+      loading.value = false;
+    }
+  }
+
   return {
     login,
     logout,
     getProfile,
     updateProfile,
+    changePassword,
     user,
     loading,
     message,
