@@ -90,13 +90,23 @@ onBeforeMount(async () => {
 
     <UPageCard variant="subtle">
       <UFormField
-        name="name"
+        name="firstName"
         label="Nombre"
-        description="Nombre completo para mostrar en tu perfil y recibos."
+        description="Nombre para mostrar en tu perfil y recibos."
         required
         class="flex max-sm:flex-col justify-between items-start gap-4"
       >
         <UInput v-model="user.firstName" autocomplete="off" />
+      </UFormField>
+      <USeparator />
+      <UFormField
+        name="lastName"
+        label="Apellidos"
+        description="Apellidos para mostrar en tu perfil y recibos."
+        required
+        class="flex max-sm:flex-col justify-between items-start gap-4"
+      >
+        <UInput v-model="user.lastName" autocomplete="off" />
       </UFormField>
       <USeparator />
       <UFormField
@@ -107,6 +117,16 @@ onBeforeMount(async () => {
         class="flex max-sm:flex-col justify-between items-start gap-4"
       >
         <UInput v-model="user.email" type="email" autocomplete="off" />
+      </UFormField>
+      <USeparator />
+      <UFormField
+        name="phoneNumber"
+        label="Teléfono"
+        description="Número de teléfono para contacto."
+        required
+        class="flex max-sm:flex-col justify-between items-start gap-4"
+      >
+        <UInput v-model="user.phoneNumber" type="email" autocomplete="off" />
       </UFormField>
       <USeparator />
       <UFormField
