@@ -10,11 +10,6 @@ const links = [
       exact: true,
     },
     {
-      label: "Notificaciones",
-      icon: "i-lucide-bell",
-      to: "/settings/notifications",
-    },
-    {
       label: "Seguridad",
       icon: "i-lucide-shield",
       to: "/settings/security",

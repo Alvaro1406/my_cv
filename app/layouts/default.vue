@@ -38,14 +38,7 @@ const links = [
           },
         },
         {
-          label: "Notifications",
-          to: "/settings/notifications",
-          onSelect: () => {
-            open.value = false;
-          },
-        },
-        {
-          label: "Security",
+          label: "Seguridad",
           to: "/settings/security",
           onSelect: () => {
             open.value = false;
