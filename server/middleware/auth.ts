@@ -39,11 +39,7 @@ export default defineEventHandler(async (event) => {
   if (event.node.req.url?.startsWith("/api/admin")) {
     try {
       // Exclude public routes as login
-      const publicRoutes = [
-        "/api/auth/login",
-        "/api/auth/logout",
-        "/api/public",
-      ];
+      const publicRoutes = ["/api/auth/login", "/api/auth/logout"];
 
       if (publicRoutes.some((route) => event.node.req.url?.startsWith(route))) {
         return;
