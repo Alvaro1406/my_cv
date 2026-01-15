@@ -6,13 +6,13 @@ const links = [
     {
       label: "General",
       icon: "i-lucide-user",
-      to: "/settings",
+      to: "/admin/settings",
       exact: true,
     },
     {
       label: "Seguridad",
       icon: "i-lucide-shield",
-      to: "/settings/security",
+      to: "/admin/settings/security",
     },
   ],
 ] satisfies NavigationMenuItem[][];

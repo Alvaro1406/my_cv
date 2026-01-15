@@ -34,7 +34,7 @@ export const useAuth = () => {
         const token = response.token;
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("auth-token", token);
-        router.push("/");
+        router.push("/admin");
       }
 
       loading.value = false;
@@ -59,7 +59,7 @@ export const useAuth = () => {
           localStorage.removeItem("user");
           localStorage.removeItem("auth-token");
         }
-        router.push("/login");
+        router.push("/admin/login");
       }
       loading.value = false;
     } catch (error: IErrorCatch | any) {
@@ -134,7 +134,7 @@ export const useAuth = () => {
       });
 
       if (response.success) {
-        router.push("/settings");
+        router.push("/admin/settings");
       }
       loading.value = false;
     } catch (error: IErrorCatch | any) {

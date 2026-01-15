@@ -24,7 +24,7 @@ export const useMenuUser = () => {
         type: "label",
         label: user.value.firstName + " " + user.value.lastName,
         avatar: {
-          src: "https://zhtzkllbjojohejpmocw.supabase.co/storage/v1/object/public/my-cv-bucket/users/b71b3514-4fcd-4991-b18a-af48d3d83cd9.jpg",
+          src: user.value.image,
           alt: user.value.firstName + " " + user.value.lastName,
         },
       },
