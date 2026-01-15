@@ -44,6 +44,17 @@ model UserSession {
   @@index([userId, token, expiresAt])
 }
 
+model Notifications {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  unread      Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([id, unread])
+}
+
 enum Role {
   ADMIN
 }
