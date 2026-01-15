@@ -3,9 +3,10 @@ import type { DropdownMenuItem } from "@nuxt/ui";
 
 export const useMenuUser = () => {
   const colorMode = useColorMode();
-  const appConfig = useAppConfig();
 
-  const { colors, neutrals } = useColors();
+  // Discussed choosing colors for the appearance.
+  // const appConfig = useAppConfig();
+  // const { colors, neutrals } = useColors();
 
   const { logout } = useAuth();
 
@@ -34,13 +35,8 @@ export const useMenuUser = () => {
       },
     ],
     [
-      {
-        label: "Perfil",
-        icon: "i-lucide-user",
-      },
-    ],
-    [
-      {
+      // Discussed choosing colors for the appearance.
+      /**{
         label: "Apariencia",
         icon: "i-lucide-palette",
         children: [
@@ -90,7 +86,7 @@ export const useMenuUser = () => {
             })),
           },
         ],
-      },
+      },*/
       {
         label: "Tema",
         icon: "i-lucide-sun-moon",
