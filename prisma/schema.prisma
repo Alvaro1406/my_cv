@@ -44,6 +44,31 @@ model UserSession {
   @@index([userId, token, expiresAt])
 }
 
+model Skills {
+  id          String     @id @default(uuid())
+  name        String
+  type        TypeSkills
+  description Json
+  level       Int
+  image       String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([name, type])
+}
+
+model Contact {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+}
+
 model Notifications {
   id          String   @id @default(uuid())
   title       String
@@ -57,4 +82,11 @@ model Notifications {
 
 enum Role {
   ADMIN
+}
+
+enum TypeSkills {
+  FrontEnd
+  BackEnd
+  Design
+  Tools
 }
