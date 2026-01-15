@@ -19,12 +19,12 @@ const { user, items } = useMenuUser();
         ...user,
         label: collapsed
           ? undefined
-          : !user.firstName || !user.lastName
+          : !user
           ? 'Cargando...'
           : `${user.firstName} ${user.lastName}`,
         avatar: {
-          src: user.image,
-          alt: user.firstName + '' + user.lastName,
+          src: user?.image,
+          alt: !user ? 'Cargando...' : `${user.firstName} ${user.lastName}`,
         },
         trailingIcon: collapsed ? undefined : 'i-lucide-chevrons-up-down',
       }"

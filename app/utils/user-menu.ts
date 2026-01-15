@@ -9,12 +9,12 @@ export const useMenuUser = () => {
 
   const { logout } = useAuth();
 
-  const user = computed<IUser>(() => {
+  const user = computed<IUser | null>(() => {
     if (import.meta.client) {
       const data: string | null | IUser = localStorage.getItem("user");
       return JSON.parse(data as string) as IUser;
     } else {
-      return {} as IUser;
+      return null;
     }
   });
 
@@ -22,10 +22,14 @@ export const useMenuUser = () => {
     [
       {
         type: "label",
-        label: user.value.firstName + " " + user.value.lastName,
+        label: !user
+          ? "Cargando..."
+          : user.value?.firstName + " " + user.value?.lastName,
         avatar: {
-          src: user.value.image,
-          alt: user.value.firstName + " " + user.value.lastName,
+          src: !user ? "" : user.value?.image,
+          alt: !user
+            ? "Cargando..."
+            : user.value?.firstName + " " + user.value?.lastName,
         },
       },
     ],
