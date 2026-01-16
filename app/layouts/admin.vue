@@ -1,67 +1,11 @@
 <script setup lang="ts">
-import type { NavigationMenuItem } from "@nuxt/ui";
-
-const open = ref(false);
-
-const links = [
-  [
-    {
-      label: "Home",
-      icon: "i-lucide-house",
-      to: "/admin",
-      onSelect: () => {
-        open.value = false;
-      },
-    },
-    {
-      label: "Inbox",
-      icon: "i-lucide-inbox",
-      to: "/admin/inbox",
-      badge: "4",
-      onSelect: () => {
-        open.value = false;
-      },
-    },
-    {
-      label: "Settings",
-      to: "/admin/settings",
-      icon: "i-lucide-settings",
-      defaultOpen: true,
-      type: "trigger",
-      children: [
-        {
-          label: "General",
-          to: "/admin/settings",
-          exact: true,
-          onSelect: () => {
-            open.value = false;
-          },
-        },
-        {
-          label: "Seguridad",
-          to: "/admin/settings/security",
-          onSelect: () => {
-            open.value = false;
-          },
-        },
-      ],
-    },
-  ],
-] satisfies NavigationMenuItem[][];
-
-const groups = computed(() => [
-  {
-    id: "links",
-    label: "Ir para...",
-    items: links.flat(),
-  },
-]);
+const { open, links, groups, nameView, showNotifications } = useDashboard();
 </script>
 
 <template>
   <UDashboardGroup unit="rem">
     <UDashboardSidebar
-      id="default"
+      id="admin"
       v-model:open="open"
       collapsible
       resizable
@@ -83,14 +27,6 @@ const groups = computed(() => [
           tooltip
           popover
         />
-
-        <UNavigationMenu
-          :collapsed="collapsed"
-          :items="links[1]"
-          orientation="vertical"
-          tooltip
-          class="mt-auto"
-        />
       </template>
 
       <template #footer="{ collapsed }">
@@ -98,10 +34,36 @@ const groups = computed(() => [
       </template>
     </UDashboardSidebar>
 
-    <UDashboardSearch :groups="groups" />
+    <UDashboardPanel>
+      <template #header>
+        <UDashboardNavbar :title="nameView" :ui="{ right: 'gap-3' }">
+          <template #leading>
+            <UDashboardSidebarCollapse />
+          </template>
 
-    <slot />
+          <template #right>
+            <UTooltip text="Notifications" :shortcuts="['N']">
+              <UButton
+                @click="showNotifications = true"
+                color="neutral"
+                variant="ghost"
+                square
+              >
+                <UChip color="error" inset>
+                  <UIcon name="i-lucide-bell" class="size-5 shrink-0" />
+                </UChip>
+              </UButton>
+            </UTooltip>
+          </template>
+        </UDashboardNavbar>
+      </template>
 
+      <template #body>
+        <UDashboardSearch :groups="groups" />
+
+        <slot />
+      </template>
+    </UDashboardPanel>
     <NotificationsSlideover />
   </UDashboardGroup>
 </template>
