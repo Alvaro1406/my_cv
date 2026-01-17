@@ -65,8 +65,9 @@ const { open, links, groups, nameView, showNotifications } = useDashboard();
         <UDashboardSearch :groups="groups" />
 
         <slot />
+
+        <Notifications />
       </template>
     </UDashboardPanel>
-    <Notifications />
   </UDashboardGroup>
 </template>
