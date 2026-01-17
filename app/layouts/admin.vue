@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import UserMenu from "~/components/admin/UserMenu.vue";
+import Notifications from "~/components/admin/Notifications.vue";
+
 const { open, links, groups, nameView, showNotifications } = useDashboard();
 </script>
 
@@ -64,6 +67,6 @@ const { open, links, groups, nameView, showNotifications } = useDashboard();
         <slot />
       </template>
     </UDashboardPanel>
-    <NotificationsSlideover />
+    <Notifications />
   </UDashboardGroup>
 </template>
