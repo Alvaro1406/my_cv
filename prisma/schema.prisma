@@ -63,21 +63,23 @@ model Contact {
   email     String
   subject   String
   message   String
+  unread    Boolean
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([email])
+  @@index([email, createdAt])
 }
 
 model Notifications {
   id          String   @id @default(uuid())
   title       String
   description String
+  contactId   String
   unread      Boolean
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  @@index([id, unread])
+  @@index([id, unread, createdAt])
 }
 
 enum Role {
