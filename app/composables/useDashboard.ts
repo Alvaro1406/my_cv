@@ -13,17 +13,9 @@ const _useDashboard = () => {
   const links = [
     [
       {
-        label: "Inicio",
-        icon: "i-lucide-house",
-        to: "/admin",
-        onSelect: () => {
-          open.value = false;
-        },
-      },
-      {
         label: "Mensajes",
         icon: "i-lucide-inbox",
-        to: "/admin/inbox",
+        to: "/admin",
         badge: "4",
         onSelect: () => {
           open.value = false;
