@@ -5,19 +5,12 @@ export default defineEventHandler(async (event) => {
     const id = getRouterParam(event, "id");
     const body = await readBody(event);
 
-    const { unread } = body;
+    const { unread, archived } = body;
 
     if (!id) {
       throw createError({
         statusCode: 400,
         statusMessage: "El ID del contacto es obligatorio",
-      });
-    }
-
-    if (unread === undefined || unread === null) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: "El campo unread es obligatorio",
       });
     }
 
@@ -27,6 +20,7 @@ export default defineEventHandler(async (event) => {
       },
       data: {
         unread: unread,
+        archived: archived,
       },
     });
 

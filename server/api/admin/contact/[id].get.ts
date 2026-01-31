@@ -22,6 +22,7 @@ export default defineEventHandler(async (event) => {
         subject: true,
         message: true,
         unread: true,
+        archived: true,
         createdAt: true,
       },
     });

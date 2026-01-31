@@ -27,7 +27,6 @@ export default defineEventHandler(async (event) => {
         email: email,
         subject: subject,
         message: message,
-        unread: true,
       },
       select: {
         name: true,

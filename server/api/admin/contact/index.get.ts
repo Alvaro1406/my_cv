@@ -4,11 +4,15 @@ export default defineEventHandler(async (event) => {
   try {
     const query = getQuery(event);
 
-    const { search, unread } = query;
+    const { search, unread, archived } = query;
 
     const where: any = {};
     if (unread !== undefined && unread !== "") {
       where.unread = unread === "true";
+    }
+
+    if (archived !== undefined && archived !== "") {
+      where.archived = archived === "true";
     }
 
     if (search !== undefined && search !== "") {
