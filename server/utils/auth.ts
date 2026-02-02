@@ -14,7 +14,7 @@ export async function getUserFromSession(event: any) {
     // Verify token and get user info
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET || "your-secret-key"
+      process.env.JWT_SECRET || "your-secret-key",
     ) as any;
 
     // Get user from database
@@ -29,8 +29,6 @@ export async function getUserFromSession(event: any) {
         image: true,
         email: true,
         phoneNumber: true,
-        role: true,
-        isActive: true,
       },
     });
 

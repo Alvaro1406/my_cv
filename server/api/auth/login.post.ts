@@ -19,7 +19,6 @@ export default defineEventHandler(async (event) => {
     const user = await prisma.user.findUnique({
       where: {
         username,
-        visible: true,
       },
     });
 
@@ -40,23 +39,14 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    // Verify user is active or not
-    if (!user.isActive) {
-      throw createError({
-        statusCode: 403,
-        statusMessage: "Usuario inactivo",
-      });
-    }
-
     // Generate JWT token
     const token = jwt.sign(
       {
         userId: user.id,
         username: user.username,
-        role: user.role,
       },
       process.env.JWT_SECRET || "your-secret-key",
-      { expiresIn: "7d" }
+      { expiresIn: "7d" },
     );
 
     /**
@@ -100,7 +90,6 @@ export default defineEventHandler(async (event) => {
         firstName: user.firstName,
         lastName: user.lastName,
         image: user.image,
-        role: user.role,
       } as ILoginResponse,
       token,
     };
