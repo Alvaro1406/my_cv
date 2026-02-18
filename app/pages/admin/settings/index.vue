@@ -90,39 +90,9 @@ onBeforeMount(async () => {
 
     <UPageCard variant="subtle">
       <UFormField
-        name="name"
-        label="Nombre"
-        description="Nombre completo para mostrar en tu perfil y recibos."
-        required
-        class="flex max-sm:flex-col justify-between items-start gap-4"
-      >
-        <UInput v-model="user.firstName" autocomplete="off" />
-      </UFormField>
-      <USeparator />
-      <UFormField
-        name="email"
-        label="Correo electrónico"
-        description="Tu dirección de correo electrónico para recibir notificaciones."
-        required
-        class="flex max-sm:flex-col justify-between items-start gap-4"
-      >
-        <UInput v-model="user.email" type="email" autocomplete="off" />
-      </UFormField>
-      <USeparator />
-      <UFormField
-        name="username"
-        label="Nombre de usuario"
-        description="Tu nombre de usuario único para iniciar sesión."
-        required
-        class="flex max-sm:flex-col justify-between items-start gap-4"
-      >
-        <UInput v-model="user.username" type="username" autocomplete="off" />
-      </UFormField>
-      <USeparator />
-      <UFormField
         name="image"
         label="Imagen de perfil"
-        description="JPG, GIF or PNG. 1MB Max."
+        description="JPG, GIF or PNG. 2MB Max."
         class="flex max-sm:flex-col justify-between sm:items-center gap-4"
       >
         <div class="flex flex-wrap items-center gap-3">
@@ -136,10 +106,60 @@ onBeforeMount(async () => {
             ref="fileRef"
             type="file"
             class="hidden"
-            accept=".jpg, .jpeg, .png, .gif"
+            accept=".jpg, .jpeg, .png"
             @change="onFileChange"
           />
         </div>
+      </UFormField>
+      <USeparator />
+      <UFormField
+        name="username"
+        label="Nombre de usuario"
+        description="Tu nombre de usuario único para iniciar sesión."
+        required
+        class="flex max-sm:flex-col justify-between items-start gap-4"
+      >
+        <UInput v-model="user.username" type="username" autocomplete="off" />
+      </UFormField>
+      <USeparator />
+      <UFormField
+        name="firstName"
+        label="Nombre"
+        description="Nombre para mostrar en tu perfil y recibos."
+        required
+        class="flex max-sm:flex-col justify-between items-start gap-4"
+      >
+        <UInput v-model="user.firstName" autocomplete="off" />
+      </UFormField>
+      <USeparator />
+      <UFormField
+        name="lastName"
+        label="Apellidos"
+        description="Apellidos para mostrar en tu perfil y recibos."
+        required
+        class="flex max-sm:flex-col justify-between items-start gap-4"
+      >
+        <UInput v-model="user.lastName" autocomplete="off" />
+      </UFormField>
+      <USeparator />
+      <UFormField
+        name="email"
+        label="Correo electrónico"
+        description="Tu dirección de correo electrónico para recibir notificaciones."
+        required
+        class="flex max-sm:flex-col justify-between items-start gap-4"
+      >
+        <UInput v-model="user.email" type="email" autocomplete="off" />
+      </UFormField>
+      <USeparator />
+      <UFormField
+        name="phoneNumber"
+        label="Teléfono"
+        description="Número de teléfono para contacto."
+        required
+        class="flex max-sm:flex-col justify-between items-start gap-4"
+      >
+        <UInput v-model="user.phoneNumber" autocomplete="off" />
       </UFormField>
     </UPageCard>
   </UForm>

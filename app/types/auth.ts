@@ -28,5 +28,9 @@ export interface IProfile {
   image?: string;
   email: string;
   phoneNumber: string;
-  role: "ADMIN" | "USER";
+}
+
+export interface ICPassword {
+  oldPassword: string;
+  password: string;
 }

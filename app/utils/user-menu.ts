@@ -3,18 +3,19 @@ import type { DropdownMenuItem } from "@nuxt/ui";
 
 export const useMenuUser = () => {
   const colorMode = useColorMode();
-  const appConfig = useAppConfig();
 
-  const { colors, neutrals } = useColors();
+  // Discussed choosing colors for the appearance.
+  // const appConfig = useAppConfig();
+  // const { colors, neutrals } = useColors();
 
   const { logout } = useAuth();
 
-  const user = computed<IUser>(() => {
+  const user = computed<IUser | null>(() => {
     if (import.meta.client) {
       const data: string | null | IUser = localStorage.getItem("user");
       return JSON.parse(data as string) as IUser;
     } else {
-      return {} as IUser;
+      return null;
     }
   });
 
@@ -22,21 +23,20 @@ export const useMenuUser = () => {
     [
       {
         type: "label",
-        label: user.value.firstName + " " + user.value.lastName,
+        label: !user
+          ? "Cargando..."
+          : user.value?.firstName + " " + user.value?.lastName,
         avatar: {
-          src: "https://zhtzkllbjojohejpmocw.supabase.co/storage/v1/object/public/my-cv-bucket/users/b71b3514-4fcd-4991-b18a-af48d3d83cd9.jpg",
-          alt: user.value.firstName + " " + user.value.lastName,
+          src: !user ? "" : user.value?.image,
+          alt: !user
+            ? "Cargando..."
+            : user.value?.firstName + " " + user.value?.lastName,
         },
       },
     ],
     [
-      {
-        label: "Perfil",
-        icon: "i-lucide-user",
-      },
-    ],
-    [
-      {
+      // Discussed choosing colors for the appearance.
+      /**{
         label: "Apariencia",
         icon: "i-lucide-palette",
         children: [
@@ -86,7 +86,7 @@ export const useMenuUser = () => {
             })),
           },
         ],
-      },
+      },*/
       {
         label: "Tema",
         icon: "i-lucide-sun-moon",

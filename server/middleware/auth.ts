@@ -7,6 +7,14 @@ export async function validateUserAccess(event: any): Promise<IUser> {
   const token = getCookie(event, "auth-token");
   const user: IUser | null = await getUserFromSession(event);
 
+  if (!token) {
+    throw createError({
+      statusCode: 401,
+      statusMessage: "No autorizado",
+    });
+  }
+
+  // Check if session is expired
   const userSession = await prisma.userSession.findUnique({
     where: { token: token },
     select: {
@@ -39,15 +47,11 @@ export default defineEventHandler(async (event) => {
   if (event.node.req.url?.startsWith("/api/admin")) {
     try {
       // Exclude public routes as login
-      const publicRoutes = [
-        "/api/auth/login",
-        "/api/auth/logout",
-        "/api/public",
-      ];
-
-      if (publicRoutes.some((route) => event.node.req.url?.startsWith(route))) {
-        return;
-      }
+      // const publicRoutes = ["/api/auth/login", "/api/auth/logout"];
+      //
+      // if (publicRoutes.some((route) => event.node.req.url?.startsWith(route))) {
+      //   return;
+      // }
 
       // Validate user access
       await validateUserAccess(event);
