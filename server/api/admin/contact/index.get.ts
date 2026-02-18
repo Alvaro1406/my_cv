@@ -7,11 +7,11 @@ export default defineEventHandler(async (event) => {
     const { search, unread, archived } = query;
 
     const where: any = {};
-    if (unread !== undefined && unread !== "") {
+    if (unread !== undefined) {
       where.unread = unread === "true";
     }
 
-    if (archived !== undefined && archived !== "") {
+    if (archived !== undefined) {
       where.archived = archived === "true";
     }
 
@@ -23,12 +23,14 @@ export default defineEventHandler(async (event) => {
       ];
     }
 
-    const [contacts, total] = await Promise.all([
+    const [contacts, total, totalUnread, totalArchived] = await Promise.all([
       prisma.contact.findMany({
         where,
         orderBy: { createdAt: "desc" },
       }),
-      prisma.contact.count({ where }),
+      prisma.contact.count({ where: { archived: false } }),
+      prisma.contact.count({ where: { unread: true, archived: false } }),
+      prisma.contact.count({ where: { archived: true } }),
     ]);
 
     return {
@@ -36,6 +38,8 @@ export default defineEventHandler(async (event) => {
       data: {
         contacts,
         total,
+        totalUnread,
+        totalArchived,
       },
     };
   } catch (error) {
