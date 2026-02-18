@@ -1,7 +1,12 @@
+// prisma/seed.ts
+// This file is used to seed the database with initial data. You can run it using `npx prisma db:seed`.
 import "dotenv/config";
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+// Import data to seed
+import { users } from "./data-seed/users";
+import { contactMessages } from "./data-seed/contacts";
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL!,
@@ -9,24 +14,16 @@ const adapter = new PrismaPg({
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
+  console.log("🌱 Start seeding...");
   await prisma.userSession.deleteMany({});
   await prisma.user.deleteMany({});
+  await prisma.contact.deleteMany({});
+  await prisma.notifications.deleteMany({});
+  await prisma.skills.deleteMany({});
 
-  // Hash the password
+  // Hash the password before seeding the users
   console.log("🌱 Hash the password");
   const passwordHash = await bcrypt.hash("Qazxsw.12", 10);
-
-  const users = [
-    {
-      username: "admin",
-      password: passwordHash,
-      firstName: "Alvaro",
-      lastName: "Beruvides",
-      phoneNumber: "+5355651996",
-      image: "",
-      email: "alvaroberuvides@gmail.com",
-    },
-  ];
 
   // Create a top-level user
   console.log("🌱 Create users");
@@ -34,7 +31,7 @@ async function main() {
     await prisma.user.create({
       data: {
         username: item.username,
-        password: item.password,
+        password: passwordHash,
         firstName: item.firstName,
         lastName: item.lastName,
         phoneNumber: item.phoneNumber,
@@ -43,6 +40,20 @@ async function main() {
       },
     });
   }
+
+  console.log("🌱 Create contacts messages");
+  for (const item of contactMessages) {
+    await prisma.contact.create({
+      data: {
+        name: item.name,
+        email: item.email,
+        subject: item.subject,
+        message: item.message,
+      },
+    });
+  }
+
+  console.log("🌱 Seeding finished.");
 }
 
 main()
