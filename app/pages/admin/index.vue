@@ -50,9 +50,14 @@ async function fetchContacts() {
     default:
       filters.value.unread = undefined;
       filters.value.archived = false;
+      break;
   }
   await getContacts(filters.value);
 }
+
+watch(selectedTab, async () => {
+  await fetchContacts();
+});
 
 onBeforeMount(async () => {
   await fetchContacts();
@@ -67,7 +72,6 @@ onBeforeMount(async () => {
       >
         <UTabs
           v-model="selectedTab"
-          :update:model-value="fetchContacts()"
           :items="tabItems"
           :content="false"
           size="sm"
