@@ -4,11 +4,12 @@
 @theme {
   /* --- Breakpoints (Screens) --- */
   --breakpoint-xs: 320px;
-  --breakpoint-tb: 768px;
-  --breakpoint-sm: 1024px;
-  --breakpoint-md: 1366px;
-  --breakpoint-lg: 1440px;
-  --breakpoint-xl: 1800px;
+  --breakpoint-tb: 560px;
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1280px;
+  --breakpoint-xl: 1440px;
+  --breakpoint-2xl: 1800px;
 
   --font-sans: "Public Sans", sans-serif;
 

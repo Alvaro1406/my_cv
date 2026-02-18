@@ -16,9 +16,6 @@ export interface IUser {
   email: string;
   image?: string;
   phoneNumber: string;
-  role: "ADMIN" | "USER";
-  isActive?: boolean;
-  visible?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }

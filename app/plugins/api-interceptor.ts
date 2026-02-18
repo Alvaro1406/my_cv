@@ -28,7 +28,7 @@ export default defineNuxtPlugin(() => {
 
         // 3. Redirect to login
         // We use navigateTo so it works both on client and server
-        await navigateTo("/login");
+        await navigateTo("/admin/login");
       }
     },
   });

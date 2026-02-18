@@ -18,18 +18,14 @@ model User {
   password    String
   firstName   String
   lastName    String
+  email       String
   phoneNumber String
   image       String
-  email       String?       @unique
-  role        Role          @default(ADMIN)
-  visible     Boolean       @default(true)
-  isActive    Boolean       @default(true)
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   sessions    UserSession[]
 
-  @@index([username, email, role, visible, isActive])
-  @@index([role, isActive])
+  @@index([username])
 }
 
 model UserSession {
@@ -44,6 +40,50 @@ model UserSession {
   @@index([userId, token, expiresAt])
 }
 
-enum Role {
-  ADMIN
+model Skills {
+  id          String     @id @default(uuid())
+  name        String
+  type        TypeSkills
+  description Json       @default("{}")
+  level       Int
+  image       String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([name, type])
+}
+
+model Contact {
+  id           String         @id @default(uuid())
+  name         String
+  email        String
+  subject      String
+  message      String
+  unread       Boolean        @default(true)
+  archived     Boolean        @default(false)
+  notification Notifications?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  @@index([email, unread, archived, createdAt])
+}
+
+model Notifications {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  contact     Contact  @relation(fields: [contactId], references: [id])
+  contactId   String   @unique
+  unread      Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([unread, createdAt])
+}
+
+enum TypeSkills {
+  FrontEnd
+  BackEnd
+  Design
+  Tools
 }
