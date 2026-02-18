@@ -1,73 +1,93 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
-import { breakpointsTailwind } from "@vueuse/core";
-import type { Mail } from "~/types";
+// Vue
+import { ref } from "vue";
+// Components
 import InboxList from "~/components/admin/inbox/InboxList.vue";
 import InboxMail from "~/components/admin/inbox/InboxMail.vue";
+// Import types
+import type { TabsItem } from "@nuxt/ui";
+import type { IContactFilters } from "~/types/contacts";
 
-const tabItems = [
+/**
+ * Tabs properties
+ */
+const selectedTab = ref("all");
+const tabItems: TabsItem[] = [
   {
-    label: "All",
+    label: "Todos",
     value: "all",
   },
   {
-    label: "Unread",
+    label: "Sin leer",
     value: "unread",
   },
 ];
-const selectedTab = ref("unread");
 
-const { data: mails } = await useFetch<Mail[]>("/api/mails", {
-  default: () => [],
+const {
+  contacts,
+  total,
+  totalUnread,
+  totalArchived,
+  message,
+  loading,
+  getContacts,
+} = useContacts();
+
+const selectedMail = ref(null);
+
+const filters = ref<IContactFilters>({
+  search: "",
+  unread: undefined,
+  archived: false,
 });
 
-// Filter mails based on the selected tab
-const filteredMails = computed(() => {
-  if (selectedTab.value === "unread") {
-    return mails.value.filter((mail) => !!mail.unread);
+async function fetchContacts() {
+  switch (selectedTab.value) {
+    case "unread":
+      filters.value.unread = true;
+      filters.value.archived = false;
+      break;
+    default:
+      filters.value.unread = undefined;
+      filters.value.archived = false;
   }
+  await getContacts(filters.value);
+}
 
-  return mails.value;
-});
-
-const selectedMail = ref<Mail | null>();
-
-const isMailPanelOpen = computed({
-  get() {
-    return !!selectedMail.value;
-  },
-  set(value: boolean) {
-    if (!value) {
-      selectedMail.value = null;
-    }
-  },
-});
-
-// Reset selected mail if it's not in the filtered mails
-watch(filteredMails, () => {
-  if (!filteredMails.value.find((mail) => mail.id === selectedMail.value?.id)) {
-    selectedMail.value = null;
-  }
+onBeforeMount(async () => {
+  await fetchContacts();
 });
 </script>
 
 <template>
   <div class="w-full h-[85dvh] grid grid-cols-12 items-start justify-center">
-    <div class="col-span-4 border-r-[0.5px] border-neutral-800 h-[100%]">
+    <div class="col-span-4 border-r-[0.5px] border-neutral-800 h-full">
       <div
         class="w-full flex justify-end items-center p-2 border-b-[0.5px] border-neutral-800"
       >
         <UTabs
-          class="w-42"
           v-model="selectedTab"
+          :update:model-value="fetchContacts()"
           :items="tabItems"
           :content="false"
-          size="xs"
-        />
+          size="sm"
+        >
+          <template #trailing="{ item }">
+            <p v-if="item.value === 'all'">{{ total }}</p>
+            <p v-else-if="item.value === 'unread'">
+              {{ totalUnread }}
+            </p>
+            <p v-else-if="item.value === 'archived'">
+              {{ totalArchived }}
+            </p>
+          </template>
+        </UTabs>
       </div>
-      <InboxList v-model="selectedMail" :mails="filteredMails" />
+      <div class="w-full h-[80dvh]">
+        <InboxList v-model="selectedMail" :contacts="contacts" />
+      </div>
     </div>
-    <div class="col-span-8 h-[100%] flex justify-center items-center">
+    <div class="col-span-8 h-full flex justify-center items-center">
       <InboxMail
         v-if="selectedMail"
         :mail="selectedMail"
