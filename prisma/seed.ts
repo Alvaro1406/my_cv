@@ -8,10 +8,11 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { users } from "./data-seed/users";
 import { contactMessages } from "./data-seed/contacts";
 
-const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL!,
+const prisma = new PrismaClient({
+  adapter: new PrismaPg({
+    connectionString: process.env.DATABASE_URL!,
+  }),
 });
-const prisma = new PrismaClient({ adapter });
 
 async function main() {
   console.log("🌱 Start seeding...");
