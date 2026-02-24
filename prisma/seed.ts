@@ -58,7 +58,6 @@ async function main() {
         title: "Nuevo mensaje de contacto",
         description: `${data.subject}`,
         contactId: data.id,
-        unread: true,
       },
     });
   }

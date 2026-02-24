@@ -29,10 +29,19 @@ export default defineEventHandler(async (event) => {
         message: message,
       },
       select: {
+        id: true,
         name: true,
         email: true,
         subject: true,
         message: true,
+      },
+    });
+
+    await prisma.notifications.create({
+      data: {
+        title: "Nuevo mensaje de contacto",
+        description: contact.subject,
+        contactId: contact.id,
       },
     });
 
