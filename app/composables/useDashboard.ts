@@ -9,14 +9,16 @@ const _useDashboard = () => {
   const open = ref(false);
   const showNotifications = ref(false);
 
+  const { totalUnread } = useContacts();
+
   // Links to menu
-  const links = [
+  const links = computed<NavigationMenuItem[]>(() => [
     [
       {
         label: "Mensajes",
         icon: "i-lucide-inbox",
         to: "/admin",
-        badge: "4",
+        badge: `${totalUnread.value}`,
         onSelect: () => {
           open.value = false;
         },
@@ -46,14 +48,14 @@ const _useDashboard = () => {
         ],
       },
     ],
-  ] satisfies NavigationMenuItem[][];
+  ]);
 
   // Groups for search
   const groups = computed(() => [
     {
       id: "links",
       label: "Ir para...",
-      items: links.flat(),
+      items: links.value.flat(),
     },
   ]);
 

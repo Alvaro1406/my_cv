@@ -88,7 +88,11 @@ onBeforeMount(async () => {
         </UTabs>
       </div>
       <div class="w-full h-[80dvh]">
-        <InboxList v-model="selectedMail" :contacts="contacts" />
+        <InboxList
+          v-model="selectedMail"
+          :contacts="contacts"
+          :loading="loading"
+        />
       </div>
     </div>
     <div class="col-span-8 h-full flex justify-center items-center">

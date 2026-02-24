@@ -3,9 +3,9 @@ import type { IContact } from "~/types/contacts";
 export const useContacts = () => {
   /** Properties */
   const contacts = ref<IContact[]>([]);
-  const total = ref<number>(0);
-  const totalUnread = ref<number>(0);
-  const totalArchived = ref<number>(0);
+  const total = useState<number>("contacts:total", () => 0);
+  const totalUnread = useState<number>("contacts:totalUnread", () => 0);
+  const totalArchived = useState<number>("contacts:totalArchived", () => 0);
   const message = ref<string>("");
   const loading = ref<boolean>(false);
 

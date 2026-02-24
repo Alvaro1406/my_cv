@@ -4,6 +4,7 @@ import type { IContact } from "~/types/contacts";
 
 const props = defineProps<{
   contacts: IContact[];
+  loading?: Boolean;
 }>();
 
 const selectedMail = defineModel<IContact | null>();
@@ -11,39 +12,50 @@ const selectedMail = defineModel<IContact | null>();
 
 <template>
   <div class="h-full overflow-y-auto divide-y divide-default">
-    <div v-for="(mail, index) in contacts" :key="index">
-      <div
-        class="p-4 sm:px-6 text-sm cursor-pointer border-l-2 transition-colors"
-        :class="[
-          mail.unread ? 'text-highlighted' : 'text-toned',
-          selectedMail && selectedMail.id === mail.id
-            ? 'border-primary bg-primary/10'
-            : 'border-(--ui-bg) hover:border-primary hover:bg-primary/5',
-        ]"
-        @click="selectedMail = mail"
-      >
+    <div v-if="!loading">
+      <div v-for="(mail, index) in contacts" :key="index">
         <div
-          class="flex items-center justify-between"
-          :class="[mail.unread && 'font-semibold']"
+          class="p-4 sm:px-6 text-sm cursor-pointer border-l-2 transition-colors"
+          :class="[
+            mail.unread ? 'text-highlighted' : 'text-toned',
+            selectedMail && selectedMail.id === mail.id
+              ? 'border-primary bg-primary/10'
+              : 'border-(--ui-bg) hover:border-primary hover:bg-primary/5',
+          ]"
+          @click="selectedMail = mail"
         >
-          <div class="flex items-center gap-3">
-            {{ mail.name }}
+          <div
+            class="flex items-center justify-between"
+            :class="[mail.unread && 'font-semibold']"
+          >
+            <div class="flex items-center gap-3">
+              {{ mail.name }}
 
-            <UChip v-if="mail.unread" />
+              <UChip v-if="mail.unread" />
+            </div>
+
+            <span>{{
+              isToday(new Date(mail.createdAt))
+                ? format(new Date(mail.createdAt), "HH:mm")
+                : format(new Date(mail.createdAt), "dd MMM")
+            }}</span>
           </div>
-
-          <span>{{
-            isToday(new Date(mail.createdAt))
-              ? format(new Date(mail.createdAt), "HH:mm")
-              : format(new Date(mail.createdAt), "dd MMM")
-          }}</span>
+          <p class="truncate" :class="[mail.unread && 'font-semibold']">
+            {{ mail.subject }}
+          </p>
+          <p class="text-dimmed line-clamp-1">
+            {{ mail.message }}
+          </p>
         </div>
-        <p class="truncate" :class="[mail.unread && 'font-semibold']">
-          {{ mail.subject }}
-        </p>
-        <p class="text-dimmed line-clamp-1">
-          {{ mail.message }}
-        </p>
+      </div>
+    </div>
+    <div v-else>
+      <div v-for="item in 10" :key="item">
+        <div class="p-4 sm:px-6 text-sm cursor-pointer grid gap-2">
+          <USkeleton class="h-4 w-[100px]" />
+          <USkeleton class="h-4 w-[200px]" />
+          <USkeleton class="h-4 w-[150px]" />
+        </div>
       </div>
     </div>
   </div>
