@@ -10,6 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  schemas  = ["public", "security", "manage"]
 }
 
 model User {
@@ -26,6 +27,7 @@ model User {
   sessions    UserSession[]
 
   @@index([username])
+  @@schema("security")
 }
 
 model UserSession {
@@ -38,6 +40,7 @@ model UserSession {
   user      User     @relation(fields: [userId], references: [id])
 
   @@index([userId, token, expiresAt])
+  @@schema("security")
 }
 
 model Skills {
@@ -51,6 +54,7 @@ model Skills {
   updatedAt   DateTime   @updatedAt
 
   @@index([name, type])
+  @@schema("manage")
 }
 
 model Contact {
@@ -61,11 +65,14 @@ model Contact {
   message      String
   unread       Boolean        @default(true)
   archived     Boolean        @default(false)
+  important    Boolean        @default(false)
+  favorite     Boolean        @default(false)
   notification Notifications?
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
 
   @@index([email, unread, archived, createdAt])
+  @@schema("manage")
 }
 
 model Notifications {
@@ -74,11 +81,12 @@ model Notifications {
   description String
   contact     Contact  @relation(fields: [contactId], references: [id])
   contactId   String   @unique
-  unread      Boolean
+  unread      Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@index([unread, createdAt])
+  @@schema("manage")
 }
 
 enum TypeSkills {
@@ -86,4 +94,6 @@ enum TypeSkills {
   BackEnd
   Design
   Tools
+
+  @@schema("manage")
 }

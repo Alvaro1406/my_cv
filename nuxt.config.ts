@@ -8,4 +8,10 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+
+  nitro: {
+    experimental: {
+      websocket: true,
+    },
+  },
 });

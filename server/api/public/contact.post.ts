@@ -1,5 +1,6 @@
 import { prisma } from "~~/server/utils/prisma";
 import { validationEmail } from "~~/server/utils/validations";
+import { socketEmit } from "~~/server/utils/socketEmit";
 
 export default defineEventHandler(async (event) => {
   try {
@@ -29,12 +30,24 @@ export default defineEventHandler(async (event) => {
         message: message,
       },
       select: {
+        id: true,
         name: true,
         email: true,
         subject: true,
         message: true,
       },
     });
+
+    const notification = await prisma.notifications.create({
+      data: {
+        title: "Nuevo mensaje de contacto",
+        description: contact.subject,
+        contactId: contact.id,
+      },
+    });
+
+    // Socket.io event emit
+    socketEmit("new-contact", notification.title);
 
     return {
       success: true,

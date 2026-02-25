@@ -15,3 +15,8 @@ export interface IContactFilters {
   unread?: boolean | undefined;
   archived?: boolean | undefined;
 }
+
+export interface IContactByIdRes {
+  success: boolean;
+  data: IContact;
+}

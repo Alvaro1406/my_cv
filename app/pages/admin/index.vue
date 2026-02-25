@@ -1,6 +1,8 @@
 <script setup lang="ts">
 // Vue
 import { ref } from "vue";
+// Socket.io
+import { useSocket } from "~/plugins/socket.io";
 // Components
 import InboxList from "~/components/admin/inbox/InboxList.vue";
 import InboxMail from "~/components/admin/inbox/InboxMail.vue";
@@ -30,6 +32,7 @@ const {
   totalArchived,
   message,
   loading,
+  selectContactId,
   getContacts,
 } = useContacts();
 
@@ -55,6 +58,14 @@ async function fetchContacts() {
   await getContacts(filters.value);
 }
 
+/**
+ * Socket.io setup
+ */
+const socket = useSocket();
+socket.on("new-contact", async (value) => {
+  await fetchContacts();
+});
+
 watch(selectedTab, async () => {
   await fetchContacts();
 });
@@ -65,7 +76,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="w-full h-[85dvh] grid grid-cols-12 items-start justify-center">
+  <div class="w-full h-full grid grid-cols-12 items-start justify-center">
     <div class="col-span-4 border-r-[0.5px] border-neutral-800 h-full">
       <div
         class="w-full flex justify-end items-center p-2 border-b-[0.5px] border-neutral-800"
@@ -88,15 +99,17 @@ onBeforeMount(async () => {
         </UTabs>
       </div>
       <div class="w-full h-[80dvh]">
-        <InboxList v-model="selectedMail" :contacts="contacts" />
+        <InboxList
+          v-model="selectedMail"
+          :contacts="contacts"
+          :loading="loading"
+        />
       </div>
     </div>
     <div class="col-span-8 h-full flex justify-center items-center">
-      <InboxMail
-        v-if="selectedMail"
-        :mail="selectedMail"
-        @close="selectedMail = null"
-      />
+      <div class="h-[80dvh] w-full" v-if="selectContactId">
+        <InboxMail />
+      </div>
       <div v-else class="hidden lg:flex flex-1 items-center justify-center">
         <UIcon name="i-lucide-inbox" class="size-32 text-dimmed" />
       </div>

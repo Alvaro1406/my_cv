@@ -8,10 +8,11 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { users } from "./data-seed/users";
 import { contactMessages } from "./data-seed/contacts";
 
-const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL!,
+const prisma = new PrismaClient({
+  adapter: new PrismaPg({
+    connectionString: process.env.DATABASE_URL!,
+  }),
 });
-const prisma = new PrismaClient({ adapter });
 
 async function main() {
   console.log("🌱 Start seeding...");
@@ -43,12 +44,20 @@ async function main() {
 
   console.log("🌱 Create contacts messages");
   for (const item of contactMessages) {
-    await prisma.contact.create({
+    const data = await prisma.contact.create({
       data: {
         name: item.name,
         email: item.email,
         subject: item.subject,
         message: item.message,
+      },
+    });
+
+    await prisma.notifications.create({
+      data: {
+        title: "Nuevo mensaje de contacto",
+        description: `${data.subject}`,
+        contactId: data.id,
       },
     });
   }
