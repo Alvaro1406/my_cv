@@ -12,43 +12,46 @@ const _useDashboard = () => {
   const { totalUnread } = useContacts();
 
   // Links to menu
-  const links = computed<NavigationMenuItem[]>(() => [
-    [
-      {
-        label: "Mensajes",
-        icon: "i-lucide-inbox",
-        to: "/admin",
-        badge: `${totalUnread.value}`,
-        onSelect: () => {
-          open.value = false;
-        },
-      },
-      {
-        label: "Ajustes",
-        to: "/admin/settings",
-        icon: "i-lucide-settings",
-        defaultOpen: true,
-        type: "trigger",
-        children: [
+  const links = computed(
+    () =>
+      [
+        [
           {
-            label: "General",
-            to: "/admin/settings",
-            exact: true,
+            label: "Mensajes",
+            icon: "i-lucide-inbox",
+            to: "/admin",
+            badge: `${totalUnread.value}`,
             onSelect: () => {
               open.value = false;
             },
           },
           {
-            label: "Seguridad",
-            to: "/admin/settings/security",
-            onSelect: () => {
-              open.value = false;
-            },
+            label: "Ajustes",
+            to: "/admin/settings",
+            icon: "i-lucide-settings",
+            defaultOpen: true,
+            type: "trigger",
+            children: [
+              {
+                label: "General",
+                to: "/admin/settings",
+                exact: true,
+                onSelect: () => {
+                  open.value = false;
+                },
+              },
+              {
+                label: "Seguridad",
+                to: "/admin/settings/security",
+                onSelect: () => {
+                  open.value = false;
+                },
+              },
+            ],
           },
         ],
-      },
-    ],
-  ]);
+      ] satisfies NavigationMenuItem[][],
+  );
 
   // Groups for search
   const groups = computed(() => [
