@@ -7,7 +7,11 @@ const props = defineProps<{
   loading?: Boolean;
 }>();
 
-const selectedMail = defineModel<IContact | null>();
+const { contact, getContactById } = useContacts();
+
+async function selectedContact(id: string) {
+  await getContactById(id);
+}
 </script>
 
 <template>
@@ -18,11 +22,11 @@ const selectedMail = defineModel<IContact | null>();
           class="p-4 sm:px-6 text-sm cursor-pointer border-l-2 transition-colors"
           :class="[
             mail.unread ? 'text-highlighted' : 'text-toned',
-            selectedMail && selectedMail.id === mail.id
+            contact && contact.id === mail.id
               ? 'border-primary bg-primary/10'
               : 'border-(--ui-bg) hover:border-primary hover:bg-primary/5',
           ]"
-          @click="selectedMail = mail"
+          @click="selectedContact(mail.id)"
         >
           <div
             class="flex items-center justify-between"

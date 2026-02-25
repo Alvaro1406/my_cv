@@ -32,6 +32,7 @@ const {
   totalArchived,
   message,
   loading,
+  selectContactId,
   getContacts,
 } = useContacts();
 
@@ -75,7 +76,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="w-full h-[85dvh] grid grid-cols-12 items-start justify-center">
+  <div class="w-full h-full grid grid-cols-12 items-start justify-center">
     <div class="col-span-4 border-r-[0.5px] border-neutral-800 h-full">
       <div
         class="w-full flex justify-end items-center p-2 border-b-[0.5px] border-neutral-800"
@@ -106,11 +107,9 @@ onBeforeMount(async () => {
       </div>
     </div>
     <div class="col-span-8 h-full flex justify-center items-center">
-      <InboxMail
-        v-if="selectedMail"
-        :mail="selectedMail"
-        @close="selectedMail = null"
-      />
+      <div class="h-[80dvh] w-full" v-if="selectContactId">
+        <InboxMail />
+      </div>
       <div v-else class="hidden lg:flex flex-1 items-center justify-center">
         <UIcon name="i-lucide-inbox" class="size-32 text-dimmed" />
       </div>
