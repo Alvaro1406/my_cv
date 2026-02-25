@@ -1,6 +1,8 @@
 <script setup lang="ts">
 // Vue
 import { ref } from "vue";
+// Socket.io
+import { useSocket } from "~/plugins/socket.io";
 // Components
 import InboxList from "~/components/admin/inbox/InboxList.vue";
 import InboxMail from "~/components/admin/inbox/InboxMail.vue";
@@ -54,6 +56,14 @@ async function fetchContacts() {
   }
   await getContacts(filters.value);
 }
+
+/**
+ * Socket.io setup
+ */
+const socket = useSocket();
+socket.on("new-contact", async (value) => {
+  await fetchContacts();
+});
 
 watch(selectedTab, async () => {
   await fetchContacts();

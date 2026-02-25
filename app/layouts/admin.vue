@@ -1,14 +1,8 @@
 <script setup lang="ts">
-import { useSocket } from "~/plugins/socket.io";
 import UserMenu from "~/components/admin/UserMenu.vue";
 import Notifications from "~/components/admin/Notifications.vue";
 
 const { open, links, groups, nameView, showNotifications } = useDashboard();
-
-const socket = useSocket();
-socket.on("new-contact", (value) => {
-  console.log(value);
-});
 </script>
 
 <template>
