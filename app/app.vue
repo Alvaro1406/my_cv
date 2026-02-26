@@ -2,7 +2,7 @@
 const colorMode = useColorMode();
 
 const color = computed(() =>
-  colorMode.value === "dark" ? "#1b1718" : "white"
+  colorMode.value === "dark" ? "#1b1718" : "white",
 );
 
 useHead({
@@ -17,7 +17,7 @@ useHead({
   },
 });
 
-const title = "Admin My Profile";
+const title = "Alvaro Beruvides";
 const description =
   "Administration to manage my profile data and work experience.";
 
