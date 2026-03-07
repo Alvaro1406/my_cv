@@ -11,6 +11,21 @@ export default defineEventHandler(async (event) => {
       });
     }
 
+    /**
+     * Mark the contact as read when fetching its details
+     */
+    await prisma.contact.update({
+      where: {
+        id: id,
+      },
+      data: {
+        unread: false,
+      },
+    });
+
+    /**
+     * Fetch the contact details, including the createdAt field for display purposes
+     */
     const contact = await prisma.contact.findUnique({
       where: {
         id: id,
