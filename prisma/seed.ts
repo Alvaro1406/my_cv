@@ -18,8 +18,8 @@ async function main() {
   console.log("🌱 Start seeding...");
   await prisma.userSession.deleteMany({});
   await prisma.user.deleteMany({});
-  await prisma.contact.deleteMany({});
   await prisma.notifications.deleteMany({});
+  await prisma.contact.deleteMany({});
   await prisma.skills.deleteMany({});
 
   // Hash the password before seeding the users

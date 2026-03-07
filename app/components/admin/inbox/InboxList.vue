@@ -7,10 +7,16 @@ const props = defineProps<{
   loading?: Boolean;
 }>();
 
-const { contact, getContactById } = useContacts();
+const { contact, totalUnread, getContactById } = useContacts();
 
 async function selectedContact(id: string) {
   await getContactById(id);
+  props.contacts.map((contact) => {
+    if (contact.id === id && contact.unread) {
+      contact.unread = false;
+      totalUnread.value--;
+    }
+  });
 }
 </script>
 
