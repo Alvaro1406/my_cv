@@ -1,3 +1,4 @@
+// TO DO: Refactor this endpoint to use the paramsFilter function and handle the logic in a more efficient way, avoiding multiple database calls in a loop.
 import { prisma } from "~~/server/utils/prisma";
 
 export default defineEventHandler(async (event) => {
