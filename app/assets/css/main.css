@@ -13,18 +13,6 @@
 
   --font-sans: "Public Sans", sans-serif;
 
-  --color-blue-50: #effdf5;
-  --color-blue-100: #d9fbe8;
-  --color-blue-200: #b3f5d1;
-  --color-blue-300: #75edae;
-  --color-blue-400: #00dc82;
-  --color-blue-500: #00c16a;
-  --color-blue-600: #00a155;
-  --color-blue-700: #007f45;
-  --color-blue-800: #016538;
-  --color-blue-900: #0a5331;
-  --color-blue-950: #052e16;
-
   /* --- Aspect Ratio --- */
   --aspect-9/8: 1 / 1.125;
 
