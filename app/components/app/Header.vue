@@ -6,23 +6,23 @@ const route = useRoute();
 const items = computed<NavigationMenuItem[]>(() => [
   {
     label: "Experiencia",
-    to: "",
-    // active: route.path.startsWith(""),
+    to: "/experience",
+    active: route.path.startsWith("/experience"),
   },
   {
     label: "Habilidades",
-    to: "",
-    // active: route.path.startsWith(""),
+    to: "/skills",
+    active: route.path.startsWith("/skills"),
   },
   {
     label: "Sobre mi",
-    to: "",
-    // active: route.path.startsWith(""),
+    to: "/about-us",
+    active: route.path.startsWith("/about-us"),
   },
   {
     label: "Contacteme",
-    to: "",
-    // active: route.path.startsWith(""),
+    to: "/contact",
+    active: route.path.startsWith("/contact"),
   },
 ]);
 </script>

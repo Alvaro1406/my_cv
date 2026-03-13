@@ -5,19 +5,16 @@ const route = useRoute();
 
 const itemsFooter: NavigationMenuItem[] = [
   {
-    label: "Figma Kit",
-    to: "",
-    active: route.path.startsWith(""),
+    label: "Términos y Condiciones",
+    to: "/terms-and-conditions",
   },
   {
-    label: "Playground",
-    to: "",
-    active: route.path.startsWith(""),
+    label: "Política de Privacidad",
+    to: "/privacy-policies",
   },
   {
-    label: "Releases",
-    to: "",
-    active: route.path.startsWith(""),
+    label: "Contacto",
+    to: "/contact",
   },
 ];
 </script>

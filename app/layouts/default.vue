@@ -5,7 +5,7 @@ import Footer from "~/components/app/Footer.vue";
 
 <template>
   <Header />
-  <UContainer class="py-2">
+  <UContainer class="py-2 min-h-[100dvh]">
     <slot />
   </UContainer>
   <Footer />
