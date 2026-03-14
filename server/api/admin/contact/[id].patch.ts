@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
     const id = getRouterParam(event, "id");
     const body = await readBody(event);
 
-    const { unread, archived } = body;
+    const { unread, archived, favorite, important } = body;
 
     if (!id) {
       throw createError({
@@ -21,6 +21,8 @@ export default defineEventHandler(async (event) => {
       data: {
         unread: unread,
         archived: archived,
+        favorite: favorite,
+        important: important,
       },
     });
 

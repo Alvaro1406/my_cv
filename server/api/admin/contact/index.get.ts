@@ -1,27 +1,19 @@
 import { prisma } from "~~/server/utils/prisma";
+import { paramsFilter } from "./utils";
 
 export default defineEventHandler(async (event) => {
   try {
     const query = getQuery(event);
 
-    const { search, unread, archived } = query;
+    const { search, unread, archived, favorite, important } = query;
 
-    const where: any = {};
-    if (unread !== undefined) {
-      where.unread = unread === "true";
-    }
-
-    if (archived !== undefined) {
-      where.archived = archived === "true";
-    }
-
-    if (search !== undefined && search !== "") {
-      where.OR = [
-        { name: { contains: search, mode: "insensitive" } },
-        { email: { contains: search, mode: "insensitive" } },
-        { message: { contains: search, mode: "insensitive" } },
-      ];
-    }
+    const where = await paramsFilter({
+      search: search as string,
+      unread: unread as string,
+      archived: archived as string,
+      favorite: favorite as string,
+      important: important as string,
+    });
 
     const [contacts, total, totalUnread, totalArchived] = await Promise.all([
       prisma.contact.findMany({
