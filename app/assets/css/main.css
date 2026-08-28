@@ -19,4 +19,7 @@
   /* --- Container Customization --- */
   --container-center: true;
   --container-padding: 0.5rem;
+
+  --- --- Colors --- */
+  --color-primary: #007BFF;
 }
