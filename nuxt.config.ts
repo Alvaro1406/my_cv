@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
 
+  /** i18n configuration */
   i18n: {
     defaultLocale: "en",
     locales: [
