@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from "@nuxt/ui";
+import languageSelect from "~/components/app/components/languageSelect.vue";
 
 const route = useRoute();
 
@@ -36,6 +37,7 @@ const items = computed<NavigationMenuItem[]>(() => [
     <UNavigationMenu :items="items" />
 
     <template #right>
+      <languageSelect />
       <UColorModeButton />
     </template>
 
