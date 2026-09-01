@@ -7,7 +7,8 @@ export const technicalMastery = [
       pt: "Especialista em interfaces reativas e de alto desempenho utilizando ecossistemas modernos.",
     },
     tags: ["VUEJS", "NUXT JS", "JAVASCRIPT", "TYPESCRIPT", "VITE"],
-    image: "",
+    image:
+      "https://zhtzkllbjojohejpmocw.supabase.co/storage/v1/object/public/my-cv-bucket/tech-mastery/panel.svg",
   },
   {
     name: "UI Architecture & Design",
@@ -17,7 +18,8 @@ export const technicalMastery = [
       pt: "Sistemas de design escaláveis e componentes modulares com foco na experiência do usuário.",
     },
     tags: ["TAILWIND CSS", "QUASAR", "PRIMEVUE", "FIGMA"],
-    image: "",
+    image:
+      "https://zhtzkllbjojohejpmocw.supabase.co/storage/v1/object/public/my-cv-bucket/tech-mastery/design.svg",
   },
   {
     name: "Tools & Ecosystem",
@@ -27,6 +29,7 @@ export const technicalMastery = [
       pt: "Domínio de ferramentas de colaboração, controle de versão e ambientes de desenvolvimento profissionais.",
     },
     tags: ["VS CODE", "POSTMAN", "GIT", "JIRA", "CONFLUENCE"],
-    image: "",
+    image:
+      "https://zhtzkllbjojohejpmocw.supabase.co/storage/v1/object/public/my-cv-bucket/tech-mastery/terminal.svg",
   },
 ];

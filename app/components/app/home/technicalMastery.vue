@@ -6,14 +6,26 @@
     <div class="flex xs:flex-col sm:flex-row gap-4 mt-4 w-full">
       <div v-for="tech in techMastery" :key="tech.id" class="w-full">
         <UCard>
-          <template #header> Imagen </template>
+          <template #header>
+            <img :src="tech.image" alt="tech.name" />
+          </template>
 
-          <h3 class="text-[24px] font-bold">{{ tech.name }}</h3>
-          <p class="text-[14px] text-muted-foreground">
+          <h3 class="text-[24px] font-bold text-primary">{{ tech.name }}</h3>
+          <p class="text-[16px] text-muted-foreground">
             {{ tech.description[locale] }}
           </p>
 
-          <template #footer> Items </template>
+          <template #footer>
+            <div class="flex flex-wrap gap-2">
+              <UBadge
+                v-for="tag in tech.tags"
+                :key="tag"
+                color="neutral"
+                variant="outline"
+                >{{ tag }}</UBadge
+              >
+            </div>
+          </template>
         </UCard>
       </div>
     </div>

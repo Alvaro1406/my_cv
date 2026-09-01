@@ -49,6 +49,7 @@ async function main() {
       data: {
         name: item.name,
         description: item.description,
+        tags: item.tags,
         image: item.image,
       },
     });

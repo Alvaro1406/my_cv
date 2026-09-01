@@ -2,6 +2,7 @@ export interface ITechnicalMastery {
   id: string;
   name: Record<string, string>;
   description: Record<string, string>;
+  tags: string[];
   image: string;
   createdAt: string;
   updatedAt: string;
