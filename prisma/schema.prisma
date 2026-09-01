@@ -43,17 +43,36 @@ model UserSession {
   @@schema("security")
 }
 
-model Skills {
-  id          String     @id @default(uuid())
-  name        String
-  type        TypeSkills
-  description Json       @default("{}")
-  level       Int
-  image       String
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+/**
+ * It will be applied in the future for better implementation and management of skills.
+ */
+/**
+ * model Skills {
+ * id                 String           @id @default(uuid())
+ * name               String
+ * level              Int
+ * type               TypeSkills
+ * technicalMasteryId String
+ * technicalMastery   TechnicalMastery @relation(fields: [technicalMasteryId], references: [id])
+ * createdAt          DateTime         @default(now())
+ * updatedAt          DateTime         @updatedAt
+ * @@index([name, type, createdAt])
+ * @@schema("manage")
+ * }
+ */
 
-  @@index([name, type])
+model TechnicalMastery {
+  id          String   @id @default(uuid())
+  name        Json     @default("{}")
+  description Json     @default("{}")
+  /**
+   * skills      Skills[]
+   */
+  image       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([name, createdAt])
   @@schema("manage")
 }
 

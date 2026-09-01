@@ -7,6 +7,7 @@ import { PrismaPg } from "@prisma/adapter-pg";
 // Import data to seed
 import { users } from "./data-seed/users";
 import { contactMessages } from "./data-seed/contacts";
+import { technicalMastery } from "./data-seed/technical-mastery";
 
 const prisma = new PrismaClient({
   adapter: new PrismaPg({
@@ -18,9 +19,9 @@ async function main() {
   console.log("🌱 Start seeding...");
   await prisma.userSession.deleteMany({});
   await prisma.user.deleteMany({});
+  await prisma.technicalMastery.deleteMany({});
   await prisma.notifications.deleteMany({});
   await prisma.contact.deleteMany({});
-  await prisma.skills.deleteMany({});
 
   // Hash the password before seeding the users
   console.log("🌱 Hash the password");
@@ -37,6 +38,17 @@ async function main() {
         lastName: item.lastName,
         phoneNumber: item.phoneNumber,
         email: item.email,
+        image: item.image,
+      },
+    });
+  }
+
+  console.log("🌱 Create technical mastery messages");
+  for (const item of technicalMastery) {
+    await prisma.technicalMastery.create({
+      data: {
+        name: item.name,
+        description: item.description,
         image: item.image,
       },
     });
