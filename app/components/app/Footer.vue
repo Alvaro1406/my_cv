@@ -27,7 +27,16 @@ const itemsFooter: NavigationMenuItem[] = [
       </p>
     </template>
 
-    <UNavigationMenu :items="itemsFooter" variant="link" />
+    <div class="flex xs:flex-col sm:flex-row justify-center items-center">
+      <div v-for="item in itemsFooter" :key="item.label">
+        <UButton
+          :label="item.label"
+          :to="item.to"
+          class="text-muted"
+          variant="ghost"
+        />
+      </div>
+    </div>
 
     <template #right>
       <UButton
