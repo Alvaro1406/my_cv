@@ -3,8 +3,12 @@
     <p class="text-[36px] font-bold">
       Technical <span class="text-primary">Mastery</span>
     </p>
-    <div class="flex xs:flex-col sm:flex-row gap-4 mt-4 w-full">
-      <div v-for="tech in techMastery" :key="tech.id" class="w-full">
+    <div class="grid grid-cols-12 gap-4 mt-4 w-full">
+      <div
+        v-for="tech in techMastery"
+        :key="tech.id"
+        class="w-full xs:col-span-12 sm:col-span-6 md:col-span-4"
+      >
         <UCard>
           <template #header>
             <img :src="tech.image" alt="tech.name" />
@@ -35,7 +39,7 @@
 <script setup lang="ts">
 const { locale } = useI18n();
 
-const { techMastery, message, loading, getTechMastery } = useTechMastery();
+const { techMastery, loading, getTechMastery } = useTechMastery();
 
 await getTechMastery();
 </script>
