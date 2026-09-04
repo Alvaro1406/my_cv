@@ -6,6 +6,7 @@ import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 // Import data to seed
 import { users } from "./data-seed/users";
+import { softSkills } from "./data-seed/softSkills";
 import { contactMessages } from "./data-seed/contacts";
 import { technicalMastery } from "./data-seed/technical-mastery";
 
@@ -43,6 +44,7 @@ async function main() {
     });
   }
 
+  // Create technical mastery messages
   console.log("🌱 Create technical mastery messages");
   for (const item of technicalMastery) {
     await prisma.technicalMastery.create({
@@ -50,6 +52,18 @@ async function main() {
         name: item.name,
         description: item.description,
         tags: item.tags,
+        image: item.image,
+      },
+    });
+  }
+
+  // Create soft skills
+  console.log("🌱 Create soft skills");
+  for (const item of softSkills) {
+    await prisma.softSkills.create({
+      data: {
+        name: item.name,
+        description: item.description,
         image: item.image,
       },
     });
