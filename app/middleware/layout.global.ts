@@ -1,10 +1,9 @@
 export default defineNuxtRouteMiddleware((to) => {
-  // Logic for the login route
-  if (to.path.startsWith("/admin/login")) {
+  if (to.path.includes("/admin/login")) {
     setPageLayout("login");
   }
   // Logic for admin routes
-  else if (to.path.startsWith("/admin")) {
+  else if (to.path.includes("/admin")) {
     setPageLayout("admin");
   }
   // Logic for public routes

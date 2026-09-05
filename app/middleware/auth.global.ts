@@ -1,12 +1,12 @@
 export default defineNuxtRouteMiddleware((to) => {
-  if (to.path.startsWith("/admin")) {
+  if (to.path.includes("/admin")) {
     try {
       if (import.meta.client) {
         const token = localStorage.getItem("auth-token");
         const publicRoutes = ["/admin/login"];
 
         if (!token) {
-          if (publicRoutes.some((route: string) => to.path.startsWith(route))) {
+          if (publicRoutes.some((route: string) => to.path.includes(route))) {
             return;
           }
 
