@@ -1,7 +1,7 @@
 export interface ISoftSkills {
   id: number;
-  name: JSON;
-  description: JSON;
+  name: Record<string, string>;
+  description: Record<string, string>;
   image: string;
   createdAt: Date;
   updatedAt: Date;

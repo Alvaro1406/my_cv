@@ -9,7 +9,7 @@
         :key="tech.id"
         class="w-full xs:col-span-12 sm:col-span-6 md:col-span-4"
       >
-        <UCard>
+        <UCard class="min-h-[320px]">
           <template #header>
             <img :src="tech.image" alt="tech.name" />
           </template>
