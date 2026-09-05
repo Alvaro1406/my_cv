@@ -4,7 +4,7 @@ export const technicalMastery = [
     description: {
       es: "Especialista en interfaces reactivas y de alto rendimiento utilizando ecosistemas modernos.",
       en: "Specialist in reactive and high-performance interfaces using modern ecosystems.",
-      pt: "Especialista em interfaces reativas e de alto desempenho utilizando ecossistemas modernos.",
+      br: "Especialista em interfaces reativas e de alto desempenho utilizando ecossistemas modernos.",
     },
     tags: [
       "JAVASCRIPT",
@@ -24,7 +24,7 @@ export const technicalMastery = [
     description: {
       es: "Sistemas de diseño escalables y componentes modulares con enfoque en la experiencia de usuario.",
       en: "Scalable design systems and modular components with a focus on user experience.",
-      pt: "Sistemas de design escaláveis e componentes modulares com foco na experiência do usuário.",
+      br: "Sistemas de design escaláveis e componentes modulares com foco na experiência do usuário.",
     },
     tags: ["TAILWIND CSS", "PRIMEVUE", "QUASAR", "FIGMA"],
     image:
@@ -35,7 +35,7 @@ export const technicalMastery = [
     description: {
       es: "Dominio de herramientas de colaboración, control de versiones y entornos de desarrollo profesional.",
       en: "Mastery of collaboration tools, version control, and professional development environments.",
-      pt: "Domínio de ferramentas de colaboração, controle de versão e ambientes de desenvolvimento profissionais.",
+      br: "Domínio de ferramentas de colaboração, controle de versão e ambientes de desenvolvimento profissionais.",
     },
     tags: ["VS CODE", "POSTMAN", "GIT", "JIRA", "CONFLUENCE", "TRELLO"],
     image:
