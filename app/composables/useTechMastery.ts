@@ -31,7 +31,7 @@ export const useTechMastery = () => {
       loading.value = false;
     } catch (error: any) {
       message.value =
-        error.response._data?.message || "Error fetching contacts";
+        error.response._data?.message || "Error fetching technical mastery";
       loading.value = false;
     }
   }

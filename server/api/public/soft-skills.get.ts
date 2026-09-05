@@ -2,18 +2,16 @@ import { prisma } from "~~/server/utils/prisma";
 
 export default defineEventHandler(async (event) => {
   try {
-    const [techMastery] = await Promise.all([
-      prisma.technicalMastery.findMany(),
-    ]);
+    const [softSkills] = await Promise.all([prisma.softSkills.findMany()]);
 
     return {
       success: true,
       data: {
-        techMastery,
+        softSkills,
       },
     };
   } catch (error) {
-    console.error("Error getting technical mastery:", error);
+    console.error("Error getting soft skills:", error);
     throw error;
   }
 });
